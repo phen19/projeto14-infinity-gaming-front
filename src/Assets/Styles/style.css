@@ -1,0 +1,7 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: #8c17be;
+}
