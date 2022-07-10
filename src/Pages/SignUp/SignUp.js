@@ -12,25 +12,17 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     function handleSignUp(event) {
-    function handleSignUp(event){
         event.preventDefault();
 
         const promise = axios.post("http://localhost:5000/sign-up", { name, email, password, confirmPassword });
 
         promise.then(() => navigate("/"));
-        promise.catch((res) => alert(`${res.response.data}`));
+        promise.catch((resp) => alert(`${resp.response.data.message}`));
     }
 
     return (
         <Container>
             <h1>Infinity Gaming </h1>
-        promise.then(() => navigate("/home"));
-        promise.catch((resp) => alert(resp.response.data.message));
-    }
-
-    return (
-        <>
-            <h1>Aparece ai por favor</h1>
             <form onSubmit={handleSignUp}>
                 <input
                     type="tetx"
@@ -72,29 +64,29 @@ const Container = styled.div`
     background-image: linear-gradient( 150deg, #4776E6, #8E54E9);
 
     h1 {
-        width: 300px;
-        font-size: 30px;
-        text-align: center;
-        word-wrap: break-word;
-        margin-bottom: 40px;
+    width: 300px;
+    font-size: 30px;
+    text-align: center;
+    word-wrap: break-word;
+    margin-bottom: 40px;
     }
 
     form {
-        width: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     }
 
     input {
-        width: 100%;
-        height: 30px;
-        padding-left: 10px;
-        border: none;
-        border-radius: 7px;
+    width: 100%;
+    height: 30px;
+    padding-left: 10px;
+    border: none;
+    border-radius: 7px;
     }
 
     input::placeholder{
@@ -102,10 +94,10 @@ const Container = styled.div`
     }
 
     button {
-        width: 100%;
-        height: 30px;
-        border: none;
-        border-radius: 7px;
-        color: #785FE9;
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 7px;
+    color: #785FE9;
     }
-`
+ `
