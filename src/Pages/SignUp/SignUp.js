@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -50,6 +50,7 @@ export default function SignUp() {
                 />
                 <button type="submit">Cadastrar</button>
             </form>
+           <Link to="/"><p>Já possui cadastro? Entre agora</p></Link>
         </Container>
     );
 }
@@ -100,4 +101,12 @@ const Container = styled.div`
     border-radius: 7px;
     color: #785FE9;
     }
- `
+
+    p {
+        color: #FFFFFF;
+        text-decoration: none;
+        margin-top: 20px;
+        font-weight: 700;
+        font-size: 13px;
+    }
+`
