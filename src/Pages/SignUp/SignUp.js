@@ -12,6 +12,7 @@ export default function SignUp() {
     const navigate = useNavigate();
 
     function handleSignUp(event) {
+    function handleSignUp(event){
         event.preventDefault();
 
         const promise = axios.post("http://localhost:5000/sign-up", { name, email, password, confirmPassword });
@@ -23,6 +24,13 @@ export default function SignUp() {
     return (
         <Container>
             <h1>Infinity Gaming </h1>
+        promise.then(() => navigate("/home"));
+        promise.catch((resp) => alert(resp.response.data.message));
+    }
+
+    return (
+        <>
+            <h1>Aparece ai por favor</h1>
             <form onSubmit={handleSignUp}>
                 <input
                     type="tetx"
