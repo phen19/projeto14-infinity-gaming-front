@@ -1,20 +1,39 @@
 
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 
-export default function SignUp() {
+export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    function handleLogin(event) {
+        event.preventDefault();
+
+        const promise = axios.post("http://localhost:5000/login", { email, password });
+
+        promise.then(() => navigate("/home"));
+        promise.catch((resp) => alert(`${resp.response.data.message}`));
+    }
+
     return (
         <Container>
             <h1>Infinity Gaming </h1>
-            <form>
+            <form onSubmit={handleLogin}>
                 <input
                     type="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
                     placeholder="Senha"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
                 />
                 <button type="submit">Entrar</button>
             </form>
