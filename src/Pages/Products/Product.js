@@ -17,26 +17,40 @@ export default function Product(){
        }
     
        function addCart({filteredProduct}){
-        if (order.some(ord => ord.id===filteredProduct._id)){
+      //  if (order.some(ord => ord.id===filteredProduct._id)){
+            if(order.includes(filteredProduct._id)){
             alert("Produto já adicionado ao carrinho!")
             return
         }
-        setOrder([...order,{id:filteredProduct._id, qty:1}])
-       }
-    
-       function removeCart({filteredProduct}){
-        const filtered = order.filter( function(rem){return rem.id !== filteredProduct._id})
-        setOrder(filtered)
-        if (order.length===0){
-            setOrder([])
-        }
+        setOrder([...order, filteredProduct._id])
+        console.log(order)
        }
 
+    
+       function removeCart({filteredProduct}){
+       // const filtered = order.filter( function(rem){return rem.id !== filteredProduct._id})
+            if(order.includes(filteredProduct._id)){
+                const index = order.indexOf(filteredProduct._id);
+                setOrder(order.splice(index,1))
+                    if (order.length===0){
+                        setOrder([])
+                    }
+            }
+        }
+
        function GotoCart(){
+            if (order ==null || order.length === 0 || order === []){
+                return <button disabled>Ver carrinho</button>
+            }else{
+                return <button>Ver carrinho</button>
+            }
+        }
+
+    function GotoCartIcon(){
         if (order ==null || order.length === 0 || order === []){
-            return <button disabled>Ver carrinho</button>
+            return <div className="cart"><ion-icon name="cart-outline"></ion-icon><IsEmptyCart></IsEmptyCart></div>
         }else{
-            return <button>Ver carrinho</button>
+            return <Link to="/cart"><div className="cart"><ion-icon name="cart-outline"></ion-icon><IsEmptyCart></IsEmptyCart></div></Link>
         }
         
     }
@@ -45,15 +59,10 @@ export default function Product(){
         <Container>
              <Header>
                 <div className="title">
-                    <h1>Infinity Gaming</h1> 
-                </div>
-                <div className="cart">
-                    <ion-icon name="cart-outline">
-                    </ion-icon>
-                    <IsEmptyCart/>
-                    
+                    <h1>Infinity Gaming ထ</h1> 
                 </div>
             </Header>
+            <GotoCartIcon/>
             <Item>
                 <Card>{products.filter(product => product._id === productID).map(filteredProduct => (
                     <>
@@ -62,13 +71,13 @@ export default function Product(){
                         <h1>{filteredProduct.description}</h1>
                         <h1>R$ {filteredProduct.price.toFixed(2)}</h1>
                         <Buttons>
-                            <button onClick={()=>addCart({filteredProduct}) }>Adicionar ao Carrinho</button>
-                            <button onClick={()=>removeCart({filteredProduct}) }>Remover do Carrinho</button>
+                            <button className= "add"onClick={()=>addCart({filteredProduct}) }>Adicionar ao Carrinho</button>
+                            <button className= "remove"onClick={()=>removeCart({filteredProduct}) }>Remover do Carrinho</button>
                         </Buttons>
                     </>))} 
                 </Card>
             </Item>
-           <Link to="/cart"><GotoCart/></Link> 
+         {/*  <Link to="/cart"><GotoCart/></Link> */}
         </Container>
     )
 
@@ -86,6 +95,25 @@ const Container = styled.div `
                                     margin-bottom: 10px;
                                     margin-left: 10px;
                                 }
+
+                                .cart{
+                                    width:30vw;
+                                    display:flex;
+                                    justify-content:center;
+                                    align-items:center;
+                                    text-align: center:
+                                    position:absolute;
+                                    color: #FFFFFF;
+                                    margin-bottom:20px;
+                                }
+                                .cart > h1{
+                                    padding-top: 10px;
+                                    
+                                }
+                                ion-icon{
+                                    margin-right: 10px;
+                                    font-size: 30px;
+                                }
 `
 const Card = styled.div` 
                             width:250px;
@@ -98,9 +126,6 @@ const Card = styled.div`
                             justify-content: space-around;
                             background: #FFFFFF;
 
-                            .selected{
-
-                            }
 `
 
 const Item = styled.div `
@@ -112,11 +137,32 @@ const Header = styled.div ` width: 100vw;
                             display:flex;
                             justify-content: center;
                             align-items: center;
+                            color: #FFFFFF;
+
+                            .title{
+                                width:70vw;
+                                font-family: 'Chakra Petch', sans-serif;
+                                font-weight: 700;
+                                font-size: 40px;
+                            }
+
+                            .title > h1{
+                                text-align: center;
+                            }
 `
 const Buttons = styled.div `    display:flex;
                                 align-items:space-around;
                              
                             button{
                                 width:100px;
+                                border:0;
                              }
+
+                             .add{
+                                background: green;
+                            }
+
+                            .remove{
+                                background: red;
+                            }
 `

@@ -11,17 +11,18 @@ export default function CheckOut() {
     console.log(checkInfo)
     return(
         <><Container>
+            <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
             <Card>
            <h1>Pedido Realizado</h1> 
 
             <h1>Número do Pedido: {checkInfo._id}</h1>
 
-            <h1>Itens:</h1> {checkInfo.items.map(item => 
+            <h1>Item(ns):</h1> {checkInfo.items.map(item => 
                 <>
                     {item.map(i=>
                         <>
                         <h1>{i.name}</h1>
-                        <h1>R$ {i.price}</h1>
+                        <h1>Preço: R$ {i.price}</h1>
                             
                         </>)}
                 </>)}
@@ -62,4 +63,23 @@ const Card = styled.div`
                             .selected{
 
                             }
+`
+const Header = styled.div ` width: 100vw;
+                            height:100px;
+                            display:flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: #FFFFFF;
+
+                            .title{
+                                width:70vw;
+                                font-family: 'Chakra Petch', sans-serif;
+                                font-weight: 700;
+                                font-size: 40px;
+                            }
+
+                            .title > h1{
+                                text-align: center;
+                            }
+                            
 `

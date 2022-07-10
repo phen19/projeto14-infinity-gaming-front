@@ -47,11 +47,21 @@ export default function Cart(){
         promise.catch((resp) => alert(resp.response.data.message));
     }
 
+    function ConfirmOrder(){
+        if (pay ==null || pay.length === 0 || pay === []){
+            return <button disabled>Confirmar Pedido</button>
+        }else{
+            return <button>Confirmar Pedido</button>
+        }
+    }
+
     return(
         <>
             <Container>
-                <h1>Seu carrinho:</h1>
-                <Card>{order.map(ord =>
+            <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
+                <Card>
+                <h1>Seu Carrinho</h1>    
+                {order.map(ord =>
                         <OrderInfo ord = {ord}/>
                 )}
                 <label>Método de Pagamento</label>
@@ -59,7 +69,8 @@ export default function Cart(){
                     <input type="radio" name="pay" value="Pix" ></input>Pix
                     <input type="radio" name="pay" value="Boleto" ></input>Boleto
                     <input type="radio" name="pay" value="Cartao" ></input>Cartão
-                    <button> Confirmar Pedido</button>
+                    <br/>
+                    <ConfirmOrder/>
                 </form>
                 </Card>
             
@@ -88,7 +99,6 @@ const Container = styled.div `
 
 const Card = styled.div` 
                             padding: 30px;
-                            background: linear-gradient(152.55deg, #4776E6 0%, #8E54E9 100%);
                             border-radius: 18px;
                             display:flex;
                             flex-direction: column;
@@ -96,7 +106,24 @@ const Card = styled.div`
                             justify-content: space-around;
                             background: #FFFFFF;
 
-                            .selected{
+`
 
+const Header = styled.div ` width: 100vw;
+                            height:100px;
+                            display:flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: #FFFFFF;
+
+                            .title{
+                                width:70vw;
+                                font-family: 'Chakra Petch', sans-serif;
+                                font-weight: 700;
+                                font-size: 40px;
                             }
+
+                            .title > h1{
+                                text-align: center;
+                            }
+                            
 `
