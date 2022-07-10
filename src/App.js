@@ -12,8 +12,9 @@ export default function App() {
     const [order, setOrder] = useState([])
     const [products, setProducts] = useState([]);
     const [pay, setPay] = useState([])
+    const [checkInfo, setCheckInfo] = useState([])
     return (
-        <UserContext.Provider value = {{user, setUser, order, setOrder, products, setProducts, pay, setPay}}>
+        <UserContext.Provider value = {{user, setUser, order, setOrder, products, setProducts, pay, setPay, checkInfo, setCheckInfo}}>
             <BrowserRouter>
                 <Routes>
                     <Route path="/sign-up" element={<SignUp />}></Route>

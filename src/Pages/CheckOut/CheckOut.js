@@ -1,25 +1,32 @@
-import { useState, useContext} from 'react';
+import {useContext} from 'react';
 import UserContext from "../../UserContext";
 import styled from "styled-components";
 
 
 export default function CheckOut() {
 
-    const { order, setOrder } = useContext(UserContext);
-    const {pay, setPay} = useContext(UserContext);
-    const {products, setProducts} = useContext(UserContext);
+    const { order } = useContext(UserContext);
+    const {checkInfo} = useContext(UserContext);
     console.log(order)
-    console.log(pay)
+    console.log(checkInfo)
     return(
         <><Container>
             <Card>
-            Pedido Realizado
+           <h1>Pedido Realizado</h1> 
 
-            Número do Pedido: XXX
+            <h1>Número do Pedido: {checkInfo._id}</h1>
 
-            Itens: 
+            <h1>Itens:</h1> {checkInfo.items.map(item => 
+                <>
+                    {item.map(i=>
+                        <>
+                        <h1>{i.name}</h1>
+                        <h1>R$ {i.price}</h1>
+                            
+                        </>)}
+                </>)}
 
-            Método de pagamento: {pay}
+            <h1>Método de pagamento: {checkInfo.payment}</h1>
             </Card>
             </Container> </>
     )

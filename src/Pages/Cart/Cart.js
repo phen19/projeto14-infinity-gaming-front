@@ -8,6 +8,7 @@ export default function Cart(){
     const {products} = useContext(UserContext);
     const { order, setOrder } = useContext(UserContext);
     const { pay, setPay} = useContext(UserContext);
+    const { checkInfo, setCheckInfo} = useContext(UserContext);
     const navigate = useNavigate();
 
     console.log(order)
@@ -41,7 +42,7 @@ export default function Cart(){
         const promise = axios.post("http://localhost:5000/order", body);
 
         promise.then((response) => {
-       // setOrder(response.data)
+        setCheckInfo(response.data)
         navigate("/checkout")});
         promise.catch((resp) => alert(resp.response.data.message));
     }
