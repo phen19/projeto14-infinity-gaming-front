@@ -2,7 +2,7 @@ import UserContext from "../../UserContext";
 import { useState, useEffect, useContext} from 'react';
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import Logo from "../../Assets/img/logo.png"
+import { Link } from "react-router-dom";
 
 export default function Product(){
     const {products, setProducts} = useContext(UserContext);
@@ -32,15 +32,26 @@ export default function Product(){
         }
        }
 
+       function GotoCart(){
+        if (order ==null || order.length === 0 || order === []){
+            return <button disabled>Ver carrinho</button>
+        }else{
+            return <button>Ver carrinho</button>
+        }
+        
+    }
+
     return(
         <Container>
-            <Header>
-                <div>
-                    <img src={Logo} width="150px"/>
+             <Header>
+                <div className="title">
+                    <h1>Infinity Gaming</h1> 
                 </div>
-                <div>
-                    <ion-icon name="cart-outline"></ion-icon>
-                    <IsEmptyCart></IsEmptyCart>
+                <div className="cart">
+                    <ion-icon name="cart-outline">
+                    </ion-icon>
+                    <IsEmptyCart/>
+                    
                 </div>
             </Header>
             <Item>
@@ -57,6 +68,7 @@ export default function Product(){
                     </>))} 
                 </Card>
             </Item>
+           <Link to="/cart"><GotoCart/></Link> 
         </Container>
     )
 
@@ -65,10 +77,10 @@ export default function Product(){
 const Container = styled.div `
                                 height: 100vh;
                                 width: 100vw;
-                                background: #EDF1F2;
                                 display:flex;
                                 flex-direction: column;
                                 align-items:center;
+                                color:#000000;
 
                                 h1{
                                     margin-bottom: 10px;
@@ -84,6 +96,7 @@ const Card = styled.div`
                             flex-direction: column;
                             align-items:center;
                             justify-content: space-around;
+                            background: #FFFFFF;
 
                             .selected{
 

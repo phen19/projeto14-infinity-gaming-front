@@ -24,18 +24,23 @@ export default function Products(){
     },[]);
 
    function addCart({product}){
-    if (order.some(ord => ord.id===product._id)){
+ //   if (order.some(ord => ord.id===product._id)){
+        if(order.includes(product._id)){
         alert("Produto já adicionado ao carrinho!")
         return
     }
-    setOrder([...order,{id:product._id, qty:1}])
+    setOrder([...order, product._id])
+    console.log(order)
    }
 
    function removeCart({product}){
-    const filtered = order.filter( function(rem){return rem.id !== product._id})
-    setOrder(filtered)
-    if (order.length===0){
-        setOrder([])
+  //  const filtered = order.filter( function(rem){return rem.id !== product._id})
+     if(order.includes(product._id)){
+        const index = order.indexOf(product._id);
+        setOrder(order.splice(index,1))
+        if (order.length < 1){
+            setOrder([])
+        }
     }
    }
 
