@@ -17,9 +17,11 @@ export default function Login() {
 
         const promise = axios.post("https://projeto14-infinity-gaming.herokuapp.com/login", { email, password });
 
+
         promise.then((response) => {
             setUser(response.data.token)
-            navigate("/home")});
+            navigate("/products")});
+            
         promise.catch((resp) => alert(`${resp.response.data.message}`));
     }
 
@@ -57,10 +59,10 @@ const Container = styled.div`
 
     h1 {
     width: 350px;
-    font-size: 30px;
     text-align: center;
     word-wrap: break-word;
     margin-bottom: 40px;
+
     font-family: 'Chakra Petch', sans-serif;
     font-weight: 700;
     font-size: 40px;

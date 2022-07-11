@@ -68,10 +68,13 @@ const Container = styled.div`
 
     h1 {
     width: 300px;
+    font-family: Chakra Petch;
+    font-weight: 700;
     font-size: 30px;
     text-align: center;
     word-wrap: break-word;
     margin-bottom: 40px;
+    color: #FFFFFF;
     }
 
     form {
