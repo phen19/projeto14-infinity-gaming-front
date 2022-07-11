@@ -29,18 +29,19 @@ export default function SignUp() {
                     placeholder="Nome"
                     value={name}
                     onChange={e => setName(e.target.value)}
-                />
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
+
                 />
                 <input
                     type="password"
                     placeholder="Senha"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
+
                 />
                 <input
                     type="password"
