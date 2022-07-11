@@ -1,27 +1,33 @@
 
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "../../UserContext";
 
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const {setUser} = useContext(UserContext);
 
     function handleLogin(event) {
         event.preventDefault();
 
-        const promise = axios.post("http://localhost:5000/login", { email, password });
+        const promise = axios.post("https://projeto14-infinity-gaming.herokuapp.com/login", { email, password });
 
-        promise.then(() => navigate("/products"));
+
+        promise.then((response) => {
+            setUser(response.data.token)
+            navigate("/products")});
+            
         promise.catch((resp) => alert(`${resp.response.data.message}`));
     }
 
     return (
         <Container>
-            <h1>Infinity Gaming </h1>
+            <h1>Infinity Gaming ထ</h1>
             <form onSubmit={handleLogin}>
                 <input
                     type="email"
@@ -52,13 +58,14 @@ const Container = styled.div`
     background-image: linear-gradient( 150deg, #4776E6, #8E54E9);
 
     h1 {
-    width: 300px;
-    font-family: Chakra Petch;
-    font-weight: 700;
-    font-size: 30px;
+    width: 350px;
     text-align: center;
     word-wrap: break-word;
     margin-bottom: 40px;
+
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 40px;
     color: #FFFFFF;
     }
 
@@ -90,8 +97,12 @@ const Container = styled.div`
     border: none;
     border-radius: 7px;
     color: #785FE9;
+    cursor:pointer;
     }
 
+    a{
+        text-decoration: none;
+    }
     p {
         color: #FFFFFF;
         text-decoration: none;

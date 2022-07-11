@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useState, useEffect, useContext} from 'react';
+import {useEffect, useContext} from 'react';
 import styled from "styled-components";
-import Logo from "../../Assets/img/logo.png"
 import UserContext from "../../UserContext";
 import { Link } from "react-router-dom";
 
@@ -9,16 +8,23 @@ export default function Products(){
 
     const {products, setProducts} = useContext(UserContext);
     const { order, setOrder } = useContext(UserContext);
-    const [selected, setSelected] = useState([])
+    const {user} = useContext(UserContext);
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${user}` //Padrão da API (Bearer Authentication)
+        }
+      }
 
     useEffect(() => {
-        if (products !== undefined) {
-        const request = axios.get("http://localhost:5000/products");
+        if (user !== undefined || user!== []) {
+        const request = axios.get("https://projeto14-infinity-gaming.herokuapp.com/products", config);
         request.then((response) =>{
                 setProducts(response.data);
-               
+               console.log(products)
         })};
     },[]);
+
+    
 
    function addCart({product}){
  //   if (order.some(ord => ord.id===product._id)){
@@ -27,7 +33,6 @@ export default function Products(){
         return
     }
     setOrder([...order, product._id])
-    console.log(order)
    }
 
    function removeCart({product}){
@@ -57,38 +62,49 @@ export default function Products(){
     
     }
 
-    function GotoCart(){
-        if (order ==null || order.length === 0 || order === []){
-            return <button disabled>Ver carrinho</button>
-        }else{
-            return <button>Ver carrinho</button>
-        }
-    }
 
-    return (
-        <>
+    if (user === null || user.length===0 || user===[]){
+        return(
+            <>
         <Container>
         <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
             <GotoCartIcon/>
             <TopPicks> 
-			{products.map(product => 
-            <Card id={product._id}>
-                <Link to ={`/products/${product._id}`}>
-                    <img src={product.image} width="134px" height="134px"/>
-                </Link>
-                <h1>{product.name}</h1>
-                <h2>R$ {product.price.toFixed(2)}</h2> 
-                <Buttons>
-                        <button className= "add" onClick={()=>addCart({product}) }>+</button>
-                        <button className="remove" onClick={()=>removeCart({product}) }>-</button>
-                </Buttons>
-            </Card>
-            )}
+			<Card style={{width:"400px"}}>
+                <h1>Para acessar os produtos é necessário estar logado</h1>
+                <Link to="/" style={{textDecoration:"none", fontWeight:"700", color:"#000000"}}>Clique aqui para se logar</Link>
+            </Card>           
             </TopPicks>
         {/*    <Link to="/cart"><GotoCart/></Link> */}
         </Container>
         </>
-    )
+        )
+    }else{
+        return (
+            <>
+            <Container>
+            <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
+                <GotoCartIcon/>
+                <TopPicks> 
+                {products.map(product => 
+                <Card id={product._id}>
+                    <Link to ={`/products/${product._id}`}>
+                        <img src={product.image} alt="imagem do produto"width="134px" height="134px"/>
+                    </Link>
+                    <h1>{product.name}</h1>
+                    <h2>R$ {product.price.toFixed(2).replace(".",",")}</h2> 
+                    <Buttons>
+                            <button className= "add" onClick={()=>addCart({product}) }>+</button>
+                            <button className="remove" onClick={()=>removeCart({product}) }>-</button>
+                    </Buttons>
+                </Card>
+                )}
+                </TopPicks>
+            {/*    <Link to="/cart"><GotoCart/></Link> */}
+            </Container>
+            </>
+        )
+    }
 }
 
 const Container = styled.div `
@@ -97,6 +113,7 @@ const Container = styled.div `
                                 display:flex;
                                 flex-direction: column;
                                 align-items: center;
+                                background-image: linear-gradient( 150deg, #4776E6, #8E54E9);
                                 h1{
                                     margin-bottom: 10px;
                                     margin-left: 10px;
@@ -121,6 +138,9 @@ const Container = styled.div `
                                     font-size: 30px;
                                 }
 
+                                a{
+                                    text-decoration:none;
+                                }
 `
 const Card = styled.div` 
                             width:160px;
@@ -169,15 +189,15 @@ const Buttons = styled.div ` display:flex;
 
                             button{
                                 width:50px;
-                                border: 0;
+                                cursor: pointer;
                             }
 
                             .add{
-                                background: green;
+                                
                             }
 
                             .remove{
-                                background: red;
+                                
                             }
 
 

@@ -15,7 +15,7 @@ export default function CheckOut() {
         <><Container>
             <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
             <Card>
-           <h1>Pedido Realizado</h1> 
+           <h1>Olá, {checkInfo.user.name}. Seu Pedido foi realizado.</h1> 
 
             <h1>Número do Pedido: {checkInfo._id}</h1>
 
@@ -39,6 +39,7 @@ const Container = styled.div `
                                 flex-direction: column;
                                 align-items:center;
                                 color:#000000;
+                                background-image: linear-gradient( 150deg, #4776E6, #8E54E9);
 
                                 h1{
                                     margin-bottom: 10px;
