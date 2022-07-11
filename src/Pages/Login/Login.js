@@ -15,7 +15,7 @@ export default function Login() {
     function handleLogin(event) {
         event.preventDefault();
 
-        const promise = axios.post("http://localhost:5000/login", { email, password });
+        const promise = axios.post("https://projeto14-infinity-gaming.herokuapp.com/login", { email, password });
 
         promise.then((response) => {
             setUser(response.data.token)

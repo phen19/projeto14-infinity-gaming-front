@@ -18,10 +18,10 @@ export default function Products(){
 
     useEffect(() => {
         if (user !== undefined || user!== []) {
-        const request = axios.get("http://localhost:5000/products", config);
+        const request = axios.get("https://projeto14-infinity-gaming.herokuapp.com/products", config);
         request.then((response) =>{
                 setProducts(response.data);
-               
+               console.log(products)
         })};
     },[]);
 
@@ -34,8 +34,6 @@ export default function Products(){
         return
     }
     setOrder([...order, product._id])
-    console.log(order)
-    console.log(user)
    }
 
    function removeCart({product}){

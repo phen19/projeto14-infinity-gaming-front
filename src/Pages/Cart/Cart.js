@@ -43,7 +43,7 @@ export default function Cart(){
                         payment: pay,
                         total: total,
                 }
-        const promise = axios.post("http://localhost:5000/order", body);
+        const promise = axios.post("https://projeto14-infinity-gaming.herokuapp.com/order", body);
 
         promise.then((response) => {
         setCheckInfo(response.data)
