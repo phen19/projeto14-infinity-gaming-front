@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { useState} from 'react';
 import Login from "./Pages/Login/Login.js"
 import Cart from "./Pages/Cart/Cart.js"
 import CheckOut from "./Pages/CheckOut/CheckOut.js"
@@ -8,9 +8,6 @@ import SignUp from "./Pages/SignUp/SignUp";
 import Products from "./Pages/Products/Products.js"
 import UserContext from "./UserContext.js";
 import Product from "./Pages/Products/Product.js";
-import { useState} from 'react';
-import Cart from "./Pages/Cart/Cart.js"
-import CheckOut from "./Pages/CheckOut/CheckOut";
 
 
 export default function App() {

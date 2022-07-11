@@ -29,6 +29,7 @@ export default function SignUp() {
                     placeholder="Nome"
                     value={name}
                     onChange={e => setName(e.target.value)}
+                />
                 <input
                     type="email"
                     placeholder="Email"
