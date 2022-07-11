@@ -6,20 +6,21 @@ import axios from "axios";
 
 export default function Cart(){
     const {products} = useContext(UserContext);
-    const { order, setOrder } = useContext(UserContext);
+    const { order} = useContext(UserContext);
     const { pay, setPay} = useContext(UserContext);
-    const { checkInfo, setCheckInfo} = useContext(UserContext);
+    const {setCheckInfo} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const navigate = useNavigate();
+    const [cardInfo, setCardInfo] = useState([])
 
 
     function OrderInfo({ord}){
-        const [qtd, setQtd] = useState(1)
-        console.log(pay)
+        const [qtd] = useState(1)
         return(
                         <>
                             {products.filter(product => product._id === ord).map(p => 
                                 <>
-                                    <img src={p.image} width="134px"></img>
+                                    <img src={p.image} alt="imagem do produto"width="134px"></img>
                                     <h1>{p.name}</h1> 
                                     <h1>R$ {p.price*qtd}</h1>
                                     
@@ -37,11 +38,18 @@ export default function Cart(){
         let total = 0
         items.forEach((c) => total+= c.price)
        
-        const body = {items: items,
-                      payment: pay,
-                      total: total,
-                }
-        const promise = axios.post("http://localhost:5000/order", body);
+        const body = {  user: user,
+            items: items,
+            payment: pay,
+            total: total,
+            }
+        if(pay==="Cartao"){
+         body.cardInfo = cardInfo
+                
+        }
+
+        console.log(body)
+        const promise = axios.post("https://projeto14-infinity-gaming.herokuapp.com/order", body);
 
         promise.then((response) => {
         setCheckInfo(response.data)
@@ -59,7 +67,6 @@ export default function Cart(){
 
     function Total(){
         const info = order.map(ord => products.find(product=> product._id===ord))
-        console.log(info)
         let total = 0
         info.forEach((c) => total+= c.price)
         return (
@@ -79,12 +86,22 @@ export default function Cart(){
                 )}
                 <Total/>
                 <label>Método de Pagamento</label>
-                <form onChange={(e) => setPay(e.target.value)} onSubmit={handleOrder}>
-                    <input type="radio" name="pay" value="Pix" ></input>Pix
-                    <input type="radio" name="pay" value="Boleto" ></input>Boleto
-                    <input type="radio" name="pay" value="Cartao" ></input>Cartão
-                    <br/>
+                <form  onSubmit={handleOrder}>
+                    <div className='radiob' onChange={(e) => setPay(e.target.value)}>
+                        <input type="radio" name="pay" value="Pix" ></input><label> Pix</label>
+                        <input type="radio" name="pay" value="Boleto" ></input><label>Boleto</label>
+                        <input type="radio" name="pay" value="Cartao" ></input><label>Cartão</label>
+                    </div>
+                    <div className='checkoutInfo'>
+                <div className = "cardInfo" style={pay === "Cartao" ?  {display:"flex"} : {display:"none"}}>
+                    <label>Número do cartão</label><input type="text" value={cardInfo.cardNumber} pattern="[0-9\s]{13,19}"
+                    maxLength="19" placeholder="xxxx xxxx xxxx xxxx" onChange={(e) => setCardInfo({...cardInfo, cardNumber: e.target.value})}></input>
+                    <label>Titular</label><input type="text" placeholder="Titular" value={cardInfo.cardUser} onChange={(e) => setCardInfo({...cardInfo, cardUser: e.target.value})}></input>
+                    <label>Vencimento</label><input type="text" placeholder="MM/AAAA"value={cardInfo.cardGoodThru} onChange={(e) => setCardInfo({...cardInfo, cardGoodThru: e.target.value})}></input>
+                    <label>Código de Segurança</label><input type="text" placeholder="VVV" value={cardInfo.securityCode} onChange={(e) => setCardInfo({...cardInfo, securityCode: e.target.value})}></input>
+                </div>
                     <ConfirmOrder/>
+                    </div>
                 </form>
                 </Card>
             
@@ -101,6 +118,7 @@ const Container = styled.div `
                                 flex-direction: column;
                                 align-items:center;
                                 color:#000000;
+                                background-image: linear-gradient( 150deg, #4776E6, #8E54E9);
 
                                 h1{
                                     margin-bottom: 10px;
@@ -108,6 +126,26 @@ const Container = styled.div `
                                 }
                                 input{
                                     margin-top: 10px;
+                                }
+
+                                .radiob{
+                                    display:flex;
+                                    justify-content: center;
+                                }
+
+                                label{
+                                    margin-top:10px;
+                                }
+                                .checkoutInfo{
+                                    display:flex;
+                                    flex-direction:column;
+                                }
+                                .cardInfo{
+                                    display:flex;
+                                    flex-direction:column;
+                                }
+                                button{
+                                    margin-top:10px;
                                 }
 `
 

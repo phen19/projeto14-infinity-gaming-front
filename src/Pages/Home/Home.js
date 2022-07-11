@@ -48,7 +48,6 @@ export default function Home() {
                 </Slider>
             </Main>
             <Footer />
-        </>
     );
 }
 

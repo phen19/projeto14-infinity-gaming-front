@@ -1,11 +1,11 @@
 import UserContext from "../../UserContext";
-import { useState, useEffect, useContext} from 'react';
+import {useContext} from 'react';
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Product(){
-    const {products, setProducts} = useContext(UserContext);
+    const {products} = useContext(UserContext);
     const { order, setOrder } = useContext(UserContext);
     const {productID} = useParams()
 
@@ -38,14 +38,6 @@ export default function Product(){
             }
         }
 
-       function GotoCart(){
-            if (order ==null || order.length === 0 || order === []){
-                return <button disabled>Ver carrinho</button>
-            }else{
-                return <button>Ver carrinho</button>
-            }
-        }
-
     function GotoCartIcon(){
         if (order ==null || order.length === 0 || order === []){
             return <div className="cart"><ion-icon name="cart-outline"></ion-icon><IsEmptyCart></IsEmptyCart></div>
@@ -66,7 +58,7 @@ export default function Product(){
             <Item>
                 <Card>{products.filter(product => product._id === productID).map(filteredProduct => (
                     <>
-                        <img src={filteredProduct.image} width="200px"/>
+                        <img src={filteredProduct.image} alt="imagem do produto"width="200px"/>
                         <h1>{filteredProduct.name}</h1>
                         <h1>{filteredProduct.description}</h1>
                         <h1>R$ {filteredProduct.price.toFixed(2)}</h1>
@@ -90,6 +82,7 @@ const Container = styled.div `
                                 flex-direction: column;
                                 align-items:center;
                                 color:#000000;
+                                background: linear-gradient( 150deg, #4776E6, #8E54E9);
 
                                 h1{
                                     margin-bottom: 10px;
@@ -155,14 +148,8 @@ const Buttons = styled.div `    display:flex;
                              
                             button{
                                 width:100px;
-                                border:0;
+                                cursor:pointer;
                              }
 
-                             .add{
-                                background: green;
-                            }
-
-                            .remove{
-                                background: red;
-                            }
+                           
 `

@@ -14,7 +14,7 @@ export default function SignUp() {
     function handleSignUp(event) {
         event.preventDefault();
 
-        const promise = axios.post("http://localhost:5000/sign-up", { name, email, password, confirmPassword });
+        const promise = axios.post("https://projeto14-infinity-gaming.herokuapp.com/sign-up", { name, email, password, confirmPassword });
 
         promise.then(() => navigate("/"));
         promise.catch((resp) => alert(`${resp.response.data.message}`));
