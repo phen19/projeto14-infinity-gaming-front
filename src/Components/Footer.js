@@ -10,9 +10,9 @@ export default function Footer() {
     return (
         <Container>
             <AiOutlineHome onClick={() => navigate("/home")} />
-            <BiCategory onClick={() => navigate("/categories")} />
+            <BiCategory onClick={() => navigate("/products")} />
             <FaRegHeart onClick={() => navigate("/favorites")} />
-            <BiUserCircle onClick={() => navigate("/cart")} />
+            <BiUserCircle onClick={() => navigate("/admim")} />
         </Container>
     );
 }
