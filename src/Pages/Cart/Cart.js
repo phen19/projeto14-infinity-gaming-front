@@ -9,6 +9,7 @@ export default function Cart(){
     const { order, setOrder } = useContext(UserContext);
     const { pay, setPay} = useContext(UserContext);
     const { checkInfo, setCheckInfo} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const navigate = useNavigate();
 
 
@@ -37,9 +38,10 @@ export default function Cart(){
         let total = 0
         items.forEach((c) => total+= c.price)
        
-        const body = {items: items,
-                      payment: pay,
-                      total: total,
+        const body = {  user: user,
+                        items: items,
+                        payment: pay,
+                        total: total,
                 }
         const promise = axios.post("http://localhost:5000/order", body);
 
@@ -101,6 +103,7 @@ const Container = styled.div `
                                 flex-direction: column;
                                 align-items:center;
                                 color:#000000;
+                                background-image: linear-gradient( 150deg, #4776E6, #8E54E9);
 
                                 h1{
                                     margin-bottom: 10px;

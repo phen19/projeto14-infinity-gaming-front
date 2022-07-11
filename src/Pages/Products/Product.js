@@ -90,6 +90,7 @@ const Container = styled.div `
                                 flex-direction: column;
                                 align-items:center;
                                 color:#000000;
+                                background: linear-gradient( 150deg, #4776E6, #8E54E9);
 
                                 h1{
                                     margin-bottom: 10px;
