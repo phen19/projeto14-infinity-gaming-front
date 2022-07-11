@@ -42,16 +42,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 strong {
-    font-weight: bold;
-}
-
-button {
-    cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
+	font-weight: bold;
 }
