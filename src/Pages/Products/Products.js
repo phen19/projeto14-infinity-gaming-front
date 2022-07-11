@@ -5,9 +5,6 @@ import Logo from "../../Assets/img/logo.png"
 import UserContext from "../../UserContext";
 import { Link } from "react-router-dom";
 
-
-
-
 export default function Products(){
 
     const {products, setProducts} = useContext(UserContext);
