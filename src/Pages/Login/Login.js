@@ -15,7 +15,7 @@ export default function Login() {
 
         const promise = axios.post("http://localhost:5000/login", { email, password });
 
-        promise.then(() => navigate("/home"));
+        promise.then(() => navigate("/products"));
         promise.catch((resp) => alert(`${resp.response.data.message}`));
     }
 
@@ -53,10 +53,13 @@ const Container = styled.div`
 
     h1 {
     width: 300px;
+    font-family: Chakra Petch;
+    font-weight: 700;
     font-size: 30px;
     text-align: center;
     word-wrap: break-word;
     margin-bottom: 40px;
+    color: #FFFFFF;
     }
 
     form {
