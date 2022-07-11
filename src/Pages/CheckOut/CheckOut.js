@@ -9,6 +9,8 @@ export default function CheckOut() {
     const {checkInfo} = useContext(UserContext);
     console.log(order)
     console.log(checkInfo)
+
+ 
     return(
         <><Container>
             <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
@@ -19,17 +21,14 @@ export default function CheckOut() {
 
             <h1>Item(ns):</h1> {checkInfo.items.map(item => 
                 <>
-                    {item.map(i=>
-                        <>
-                        <h1>{i.name}</h1>
-                        <h1>Preço: R$ {i.price}</h1>
-                            
-                        </>)}
-                </>)}
-
+                        <h1>{item.name}  R$ {item.price}</h1>
+                </>
+                )}
+            <h1>Total: R$ {checkInfo.total.toFixed(2)}</h1>
             <h1>Método de pagamento: {checkInfo.payment}</h1>
             </Card>
-            </Container> </>
+            </Container> 
+            </>
     )
 }
 

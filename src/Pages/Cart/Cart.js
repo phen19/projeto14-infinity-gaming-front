@@ -11,7 +11,6 @@ export default function Cart(){
     const { checkInfo, setCheckInfo} = useContext(UserContext);
     const navigate = useNavigate();
 
-    console.log(order)
 
     function OrderInfo({ord}){
         const [qtd, setQtd] = useState(1)
@@ -34,11 +33,14 @@ export default function Cart(){
 
     function handleOrder(event){
         event.preventDefault();
-        const items = order.map(ord => products.filter(product => product._id === ord))
+        const items = order.map(ord => products.find(product => product._id === ord))
+        let total = 0
+        items.forEach((c) => total+= c.price)
+       
         const body = {items: items,
-                      payment: pay
+                      payment: pay,
+                      total: total,
                 }
-
         const promise = axios.post("http://localhost:5000/order", body);
 
         promise.then((response) => {
@@ -55,6 +57,17 @@ export default function Cart(){
         }
     }
 
+    function Total(){
+        const info = order.map(ord => products.find(product=> product._id===ord))
+        console.log(info)
+        let total = 0
+        info.forEach((c) => total+= c.price)
+        return (
+        <h1>TOTAL: R$ {total.toFixed(2)}</h1>
+        )
+    }
+
+
     return(
         <>
             <Container>
@@ -64,6 +77,7 @@ export default function Cart(){
                 {order.map(ord =>
                         <OrderInfo ord = {ord}/>
                 )}
+                <Total/>
                 <label>Método de Pagamento</label>
                 <form onChange={(e) => setPay(e.target.value)} onSubmit={handleOrder}>
                     <input type="radio" name="pay" value="Pix" ></input>Pix
