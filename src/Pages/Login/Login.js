@@ -10,7 +10,7 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const {user, setUser} = useContext(UserContext);
+    const {setUser} = useContext(UserContext);
 
     function handleLogin(event) {
         event.preventDefault();

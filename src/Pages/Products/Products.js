@@ -1,7 +1,6 @@
 import axios from "axios";
-import { useState, useEffect, useContext, useTransition} from 'react';
+import {useEffect, useContext} from 'react';
 import styled from "styled-components";
-import Logo from "../../Assets/img/logo.png"
 import UserContext from "../../UserContext";
 import { Link } from "react-router-dom";
 
@@ -9,7 +8,7 @@ export default function Products(){
 
     const {products, setProducts} = useContext(UserContext);
     const { order, setOrder } = useContext(UserContext);
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const config = {
         headers: {
             "Authorization": `Bearer ${user}` //Padrão da API (Bearer Authentication)
@@ -63,13 +62,6 @@ export default function Products(){
     
     }
 
-    function GotoCart(){
-        if (order ===null || order.length === 0 || order === []){
-            return <button disabled>Ver carrinho</button>
-        }else{
-            return <button>Ver carrinho</button>
-        }
-    }
 
     if (user === null || user.length===0 || user===[]){
         return(
@@ -78,8 +70,9 @@ export default function Products(){
         <Header><div className="title"><h1>Infinity Gaming ထ </h1> </div></Header>
             <GotoCartIcon/>
             <TopPicks> 
-			<Card>
-                <h1>Para ver os produtos é necessário estar logado</h1>
+			<Card style={{width:"400px"}}>
+                <h1>Para acessar os produtos é necessário estar logado</h1>
+                <Link to="/" style={{textDecoration:"none", fontWeight:"700", color:"#000000"}}>Clique aqui para se logar</Link>
             </Card>           
             </TopPicks>
         {/*    <Link to="/cart"><GotoCart/></Link> */}
@@ -96,10 +89,10 @@ export default function Products(){
                 {products.map(product => 
                 <Card id={product._id}>
                     <Link to ={`/products/${product._id}`}>
-                        <img src={product.image} width="134px" height="134px"/>
+                        <img src={product.image} alt="imagem do produto"width="134px" height="134px"/>
                     </Link>
                     <h1>{product.name}</h1>
-                    <h2>R$ {product.price.toFixed(2)}</h2> 
+                    <h2>R$ {product.price.toFixed(2).replace(".",",")}</h2> 
                     <Buttons>
                             <button className= "add" onClick={()=>addCart({product}) }>+</button>
                             <button className="remove" onClick={()=>removeCart({product}) }>-</button>
@@ -145,6 +138,9 @@ const Container = styled.div `
                                     font-size: 30px;
                                 }
 
+                                a{
+                                    text-decoration:none;
+                                }
 `
 const Card = styled.div` 
                             width:160px;
@@ -193,15 +189,15 @@ const Buttons = styled.div ` display:flex;
 
                             button{
                                 width:50px;
-                                border: 0;
+                                cursor: pointer;
                             }
 
                             .add{
-                                background: green;
+                                
                             }
 
                             .remove{
-                                background: red;
+                                
                             }
 
 
